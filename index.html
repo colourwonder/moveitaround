@@ -2,33 +2,71 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>hello phaser!</title>
+        <title>Plants Vs. Zombies - Flower Power</title>
         <script src="//cdn.jsdelivr.net/phaser/2.5.0/phaser.min.js"></script>
     </head>
     <body>
 
     <script type="text/javascript">
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-    window.onload = function() {
+function preload() {
 
-        //  Note that this html file is set to pull down Phaser 2.5.0 from the JS Delivr CDN.
-        //  Although it will work fine with this tutorial, it's almost certainly not the most current version.
-        //  Be sure to replace it with an updated version before you start experimenting with adding your own code.
+    game.load.spritesheet('zombie', 'img/hippie zombie75x168.png', 37, 45, 18);
 
-        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+}
 
-        function preload () {
-            game.load.image('logo', 'img/hippie zombie small.png');
+var sprites;
+var rip = 0;
+
+function create() {
+
+    sprites = game.add.group();
+
+    game.time.events.loop(50, createSprite, this);
+
+}
+
+function createSprite() {
+
+    var zombie = sprites.create(0, game.world.randomY, 'zombie');
+
+    zombie.animations.add('walk');
+
+    zombie.play('walk', 10, true);
+
+}
+
+function update() {
+
+    sprites.setAll('x', 10, true, true, 1);
+
+    sprites.forEach(checkSprite, this, true);
+
+}
+
+function checkSprite(sprite) {
+
+    try {
+        if (sprite.x > game.width)
+        {
+            rip++;
+            sprites.remove(sprite, true);
         }
+    }
+    catch (e)
+    {
+        console.log(sprite);
+    }
 
-        function create () {
+}
 
-            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-            logo.anchor.setTo(0.5, 0.5);
+function render() {
 
-        }
+    game.debug.text("Group size: " + sprites.total, 32, 32);
+    game.debug.text("Destroyed: " + rip, 32, 64);
 
-    };
+}
 
     </script>
 

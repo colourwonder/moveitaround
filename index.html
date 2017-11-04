@@ -19,6 +19,18 @@ function preload() {
 var sprites;
 var rip = 0;
 
+function flipSprite(sprite) {
+  // Set Anchor to the center of your sprite
+
+  sprite.anchor.setTo(.5,.5);
+
+// Invert scale.x to flip left/right
+
+  sprite.scale.x *= -1;
+
+  return(sprite)
+}
+
 function create() {
 
     sprites = game.add.group();
@@ -30,6 +42,7 @@ function create() {
 function createSprite() {
 
     var zombie = sprites.create(0, game.world.randomY, 'zombie');
+    zombie = flipSprite(zombie);
 
     zombie.animations.add('walk');
 

@@ -35,20 +35,15 @@ function create() {
 
     sprites = game.add.group();
 
-    game.time.events.loop(500, createSprite, this);
+
+    sprites.create(0, 0, 'zombie');
+
+     //  This will create a new object called "cursors", inside it will contain 4 objects: up, down, left and right.
+    //  These are all Phaser.Key objects, so anything you can do with a Key object you can do with these.
+    cursors = game.input.keyboard.createCursorKeys();
 
 }
 
-function createSprite() {
-
-    var zombie = sprites.create(0, game.world.randomY, 'zombie');
-    zombie = flipSprite(zombie);
-
-    zombie.animations.add('walk');
-
-    zombie.play('walk', 2, true);
-
-}
 
 function update() {
 

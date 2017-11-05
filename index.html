@@ -16,8 +16,9 @@ function preload() {
 
 }
 
-var sprites;
-var rip = 0;
+//var sprites;
+//var rip = 0;
+var zombie;
 
 function flipSprite(sprite) {
   // Set Anchor to the center of your sprite
@@ -25,19 +26,19 @@ function flipSprite(sprite) {
   sprite.anchor.setTo(.5,.5);
 
 // Invert scale.x to flip left/right
-
   sprite.scale.x *= -1;
-
-  return(sprite)
 }
 
 function create() {
 
-    sprites = game.add.group();
+    //sprites = game.add.group();
 
 
-    var zombie = sprites.create(0, 0, 'zombie');
-    zombie = flipSprite(zombie);
+    zombie = sprites.create(game.world.centerX, game.world.centerY, 'zombie');
+    flipSprite(zombie);
+
+    zombie.anchor.setTo(0.5, 0.5);
+    zombie.scale.setTo(2, 2);
 
      //  This will create a new object called "cursors", inside it will contain 4 objects: up, down, left and right.
     //  These are all Phaser.Key objects, so anything you can do with a Key object you can do with these.
@@ -48,18 +49,18 @@ function create() {
 
 function update() {
 
-    sprites.setAll('x', 2, true, true, 1);
+    //sprites.setAll('x', 2, true, true, 1);
 
-    sprites.forEach(checkSprite, this, true);
+    //sprites.forEach(checkSprite, this, true);
 
      //  For example this checks if the up or down keys are pressed and moves the camera accordingly.
     if (cursors.right.isDown)
     {
-      game.camera.x -= 4;
+      zombie.x -= 4;
     }
     if (cursors.left.isDown)
     {
-      game.camera.x -= 4;
+      zombie.x -= 4;
     }
 
 }
@@ -82,8 +83,7 @@ function checkSprite(sprite) {
 
 function render() {
 
-    game.debug.text("Group size: " + sprites.total, 32, 32);
-    game.debug.text("Destroyed: " + rip, 32, 64);
+    game.debug.text("Wyatt is a goof ball :-)", 32, 32);
 
 }
 

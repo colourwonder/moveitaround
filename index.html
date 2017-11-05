@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>Plants Vs. Zombies - Flower Power</title>
-        <script src="//cdn.jsdelivr.net/phaser/2.5.0/phaser.min.js"></script>
+        <script src="phaser.min.js"></script>
     </head>
     <body>
 
@@ -19,6 +19,7 @@ function preload() {
 //var sprites;
 //var rip = 0;
 var zombie;
+var facingRight;
 
 function flipSprite(sprite) {
   // Set Anchor to the center of your sprite
@@ -31,14 +32,14 @@ function flipSprite(sprite) {
 
 function create() {
 
-    //sprites = game.add.group();
+    var sprites = game.add.group();
 
 
     zombie = sprites.create(game.world.centerX, game.world.centerY, 'zombie');
-    flipSprite(zombie);
+    facingRight = false;
 
     zombie.anchor.setTo(0.5, 0.5);
-    zombie.scale.setTo(2, 2);
+    zombie.scale.setTo(1, 1);
 
      //  This will create a new object called "cursors", inside it will contain 4 objects: up, down, left and right.
     //  These are all Phaser.Key objects, so anything you can do with a Key object you can do with these.
@@ -56,10 +57,19 @@ function update() {
      //  For example this checks if the up or down keys are pressed and moves the camera accordingly.
     if (cursors.right.isDown)
     {
-      zombie.x -= 4;
+      if(facingRight == false) {
+        facingRight = true;
+        flipSprite(zombie);
+      }
+      zombie.x += 4;
+
     }
     if (cursors.left.isDown)
     {
+      if(facingRight == true) {
+        facingRight = false;
+        flipSprite(zombie);
+      }
       zombie.x -= 4;
     }
 

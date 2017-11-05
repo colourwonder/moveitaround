@@ -36,7 +36,8 @@ function create() {
     sprites = game.add.group();
 
 
-    sprites.create(0, 0, 'zombie');
+    var zombie = sprites.create(0, 0, 'zombie');
+    zombie = flipSprite(zombie);
 
      //  This will create a new object called "cursors", inside it will contain 4 objects: up, down, left and right.
     //  These are all Phaser.Key objects, so anything you can do with a Key object you can do with these.
@@ -50,6 +51,16 @@ function update() {
     sprites.setAll('x', 2, true, true, 1);
 
     sprites.forEach(checkSprite, this, true);
+
+     //  For example this checks if the up or down keys are pressed and moves the camera accordingly.
+    if (cursors.right.isDown)
+    {
+      game.camera.x -= 4;
+    }
+    if (cursors.le.isDown)
+    {
+      game.camera.x -= 4;
+    }
 
 }
 
